@@ -1,0 +1,48 @@
+Projectile game
+Display a "wall" with random height and location. Player has to move sliders to adjust a parabolic path to clear the wall
+For added difficulty, make a second level where players enter a, b, and c without sliders
+
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider
+import numpy as np
+import random
+
+def projectile_game():
+    # Randomly generate wall position and height
+    x_wall = random.uniform(50, 100)
+    h_wall = random.uniform(10, 50)
+
+    # Setup plot
+    fig, ax = plt.subplots()
+    plt.subplots_adjust(bottom=0.25)
+    t = np.linspace(0, 10, 400)
+
+    v0_slider_ax = plt.axes([0.2, 0.1, 0.65, 0.03])
+    angle_slider_ax = plt.axes([0.2, 0.05, 0.65, 0.03])
+
+    v0_slider = Slider(v0_slider_ax, 'Initial Velocity', 0.1, 100.0, valinit=50)
+    angle_slider = Slider(angle_slider_ax, 'Angle', 0.1, 90.0, valinit=45)
+
+    def update(val):
+        v0 = v0_slider.val
+        angle = angle_slider.val
+        theta = np.radians(angle)
+
+        x = v0 * np.cos(theta) * t
+        y = v0 * np.sin(theta) * t - 0.5 * 9.81 * t**2
+
+        ax.clear()
+        ax.plot(x, y)
+        ax.plot([x_wall, x_wall], [0, h_wall], 'r-')
+        ax.set_xlim(0, max(x_wall + 10, max(x)))
+        ax.set_ylim(0, max(h_wall + 10, max(y)))
+        plt.draw()
+
+    v0_slider.on_changed(update)
+    angle_slider.on_changed(update)
+
+    update(None)
+    plt.show()
+
+# Run the projectile game with sliders
+projectile_game()
