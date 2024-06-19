@@ -1,0 +1,38 @@
+Algebra practice game
+Generate one-step and two-step problems with random integer values and the player has to input the answer
+Use positive and negative values. For added difficulty, make the numbers larger
+
+import random
+
+def algebra_practice_game():
+    # Generate random one-step problem
+    def one_step_problem():
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        solution = -b / a
+        print(f"Solve for x: {a}x + {b} = 0")
+        player_answer = float(input("Your answer: "))
+        if player_answer == solution:
+            print("Correct!")
+        else:
+            print(f"Incorrect! The correct answer was {solution}.")
+
+    # Generate random two-step problem
+    def two_step_problem():
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        c = random.randint(-10, 10)
+        solution = (c - b) / a
+        print(f"Solve for x: {a}x + {b} = {c}")
+        player_answer = float(input("Your answer: "))
+        if player_answer == solution:
+            print("Correct!")
+        else:
+            print(f"Incorrect! The correct answer was {solution}.")
+
+    # Run problems
+    one_step_problem()
+    two_step_problem()
+
+# Run the algebra practice game
+algebra_practice_game()
