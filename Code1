@@ -1,0 +1,33 @@
+Scatter plot game
+Randomly generate points on a graph and the player has to input the (x,y) coordinates
+For added difficulty, make the graph larger
+
+import matplotlib.pyplot as plt
+import random
+
+def scatter_plot_game():
+    plt.figure()
+
+    # Randomly generate points
+    points = [(random.randint(-10, 10), random.randint(-10, 10)) for _ in range(5)]
+    for point in points:
+        plt.plot(point[0], point[1], 'ro')  # red dot
+
+    plt.xlim(-15, 15)
+    plt.ylim(-15, 15)
+    plt.axhline(0, color='black',linewidth=0.5)
+    plt.axvline(0, color='black',linewidth=0.5)
+    plt.grid(color='gray', linestyle='--', linewidth=0.5)
+    plt.show()
+
+    # Player inputs the coordinates
+    for i, (x, y) in enumerate(points):
+        player_x = int(input(f"Enter x-coordinate for point {i+1}: "))
+        player_y = int(input(f"Enter y-coordinate for point {i+1}: "))
+        if player_x == x and player_y == y:
+            print("Correct!")
+        else:
+            print(f"Incorrect! The correct coordinates were ({x}, {y}).")
+
+# Run the scatter plot game
+scatter_plot_game()
